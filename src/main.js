@@ -7,6 +7,10 @@ import store from './store'
 import axios from 'axios'
 Vue.prototype.axios = axios;
 
+import jquery from 'jquery'
+Vue.prototype.$ = jquery;
+Vue.prototype.jQuery = jquery;
+
 Vue.config.productionTip = false
 
 new Vue({
