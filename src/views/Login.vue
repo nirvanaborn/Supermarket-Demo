@@ -16,7 +16,7 @@
         </div>
         <div class="item">
           <a href="javascript:void(0);">忘记密码</a>
-          <a href="javascript:void(0);">立即注册</a>
+          <router-link to="/register">立即注册</router-link>
         </div>
         <div class="item">
           <button id="btn-login" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
@@ -41,7 +41,9 @@ export default {
     };
   },
   mounted() {
-    console.log(getCookie("loginName"));
+    if (getCookie("loginName")) {
+      this.$router.push({ path: "/" });
+    }
   },
   methods: {
     login() {
