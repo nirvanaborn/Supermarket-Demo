@@ -8,18 +8,18 @@
         <h1>用户登录</h1>
         <div class="item">
           <label for="loginName">用户名：</label>
-          <input type="text" id="loginName">
+          <input type="text" id="loginName" v-model="loginName">
         </div>
         <div class="item">
           <label for="password">密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="password">
+          <input type="password" id="password" v-model="password">
         </div>
         <div class="item">
           <a href="javascript:void(0);">忘记密码</a>
           <a href="javascript:void(0);">立即注册</a>
         </div>
         <div class="item">
-          <button id="btn-login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+          <button id="btn-login" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
         </div>
       </div>
     </div>
@@ -32,7 +32,33 @@
 </template>
 <script>
 export default {
-  name: "login"
+  name: "login",
+  data() {
+    return {
+      loginName: "",
+      password: ""
+    };
+  },
+  methods: {
+    login() {
+      var vm = this;
+      if (!this.loginName || !this.password) {
+        alert("请输入用户名或密码");
+        return;
+      }
+      let data = {
+        loginName: this.loginName,
+        password: this.password
+      };
+      this.axios.post("/api/login", data).then(function(res) {
+        if (res.data.code != 200) {
+          alert(res.data.message);
+          return;
+        }
+        vm.$router.push({ path: "/" });
+      });
+    }
+  }
 };
 </script>
 <style scoped>
