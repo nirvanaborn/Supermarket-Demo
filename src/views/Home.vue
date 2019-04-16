@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <div class="header">
-      <router-link :to="loginOrpersonalSpaceUrl">{{username}}</router-link>
-    </div>
+    <Header :msgUrl="loginOrpersonalSpaceUrl" :msgUsername="username" :quit="quit">
+      <div class="user-control">
+        <router-link :to="loginOrpersonalSpaceUrl">{{username}}</router-link>
+        <button @click="quit" v-if="username!='您好，请登录'">注销</button>
+      </div>
+    </Header>
     <div class="main">
       <div class="m-t">
         <div class="side">我是侧边导航栏</div>
-        <div class="rotationImg">我是轮播图</div>
         <RotationImg></RotationImg>
         <div class="discount">我是右侧限时折扣</div>
       </div>
@@ -16,8 +17,7 @@
       <div class="item">C</div>
       <div class="item">D</div>
     </div>
-    <div class="footer">我是底部</div>
-    <button @click="quit">注销</button>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -25,6 +25,8 @@
 // @ is an alias to /src
 import { setCookie, getCookie, delCookie } from "../assets/js/cookie";
 import RotationImg from "@/components/RotationImg.vue";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "home",
@@ -35,7 +37,9 @@ export default {
     };
   },
   components: {
-    RotationImg
+    RotationImg,
+    Header,
+    Footer
   },
   mounted() {
     if (!getCookie("loginName")) {
@@ -49,12 +53,20 @@ export default {
   },
   methods: {
     quit() {
-      delCookie("loginName");
-      console.log("cookie删除成功");
-      setTimeout(function() {
-        location.reload();
-      }, 3000);
+      if (getCookie("loginName")) {
+        delCookie("loginName");
+        console.log("cookie删除成功");
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
+      }
     }
   }
 };
 </script>
+<style scoped>
+.main {
+  width: 1536px;
+  margin: 0 auto;
+}
+</style>

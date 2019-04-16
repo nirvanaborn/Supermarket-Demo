@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <Header></Header>
     <div class="header">
       <img src="../assets/logo.png" alt="logo" id="logo">
     </div>
@@ -32,8 +33,12 @@
 </template>
 <script>
 import { getCookie, setCookie } from "../assets/js/cookie";
+import Header from "@/components/Header.vue";
 export default {
   name: "login",
+  compnoents: {
+    Header
+  },
   data() {
     return {
       loginName: "",

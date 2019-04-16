@@ -1,8 +1,6 @@
 <template>
   <div class="register">
-    <div class="header">
-      <img src="../assets/logo.png" alt="logo" id="logo">
-    </div>
+    <Header></Header>
     <div class="container">
       <div class="c-r">
         <h1>用户注册</h1>
@@ -38,18 +36,20 @@
       </div>
       <img src="../../public/images/flower.png" alt="left background-image" class="l-bgimg">
     </div>
-    <div class="footer">
-      By：North University of China 郭继隆
-      <br>email：1846055905@qq.com
-      <br>phone：18306897726
-    </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import { createCode, validate } from "../assets/js/captcha";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "register",
+  components: {
+    Header,
+    Footer
+  },
   data() {
     return {
       loginName: "",
@@ -136,22 +136,15 @@ export default {
 };
 </script>
 <style scoped>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  box-sizing: border-box;
-  height: 100%;
-}
-
 a {
   text-decoration-line: none;
   color: #000;
 }
 
-#logo {
-  margin-left: 50px;
+.register{
+  height: 721px;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
