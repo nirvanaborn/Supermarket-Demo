@@ -25,6 +25,7 @@ a:hover {
   width: 1536px;
   height: 95px;
   margin: 0 auto;
+  padding-left: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;

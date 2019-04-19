@@ -8,14 +8,20 @@
     </Header>
     <div class="main">
       <div class="m-t">
-        <div class="side">我是侧边导航栏</div>
+        <Side @sendList="sendFromSide"></Side>
         <RotationImg></RotationImg>
-        <div class="discount">我是右侧限时折扣</div>
+        <Discount></Discount>
       </div>
-      <div class="item">A</div>
-      <div class="item">B</div>
-      <div class="item">C</div>
-      <div class="item">D</div>
+
+      <div class="item" v-for="(g, i) in goods" :key="i">
+        <h1>{{g.typeName}}</h1>
+        <div class="item-content">
+          <div v-for="(item,i) in g.items" :key="i" class="item-c-msg">
+            <span>{{item.name}}</span>
+            <img :src="item.imgUrl" :alt="item.commodityCode">
+          </div>
+        </div>
+      </div>
     </div>
     <Footer></Footer>
   </div>
@@ -27,19 +33,25 @@ import { setCookie, getCookie, delCookie } from "../assets/js/cookie";
 import RotationImg from "@/components/RotationImg.vue";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+import Side from "@/components/Side.vue";
+import Discount from "@/components/Discount.vue";
 
 export default {
   name: "home",
   data() {
     return {
       username: "您好，请登录",
-      loginOrpersonalSpaceUrl: ""
+      loginOrpersonalSpaceUrl: "",
+      lists: [],
+      goods: []
     };
   },
   components: {
     RotationImg,
     Header,
-    Footer
+    Footer,
+    Side,
+    Discount
   },
   mounted() {
     if (!getCookie("loginName")) {
@@ -50,6 +62,7 @@ export default {
       this.username = getCookie("loginName");
       this.loginOrpersonalSpaceUrl = "/personspace";
     }
+    this.getGoods();
   },
   methods: {
     quit() {
@@ -58,15 +71,52 @@ export default {
         console.log("cookie删除成功");
         setTimeout(function() {
           location.reload();
-        }, 1000);
+        }, 500);
       }
+    },
+    getGoods() {
+      var vm = this;
+      this.axios.get("/api/getGoods").then(function(res) {
+        vm.goods = res.data.result0;
+        console.log(vm.goods);
+      });
+    },
+    sendFromSide(data) {
+      this.lists = data;
+      console.log(this.lists);
     }
   }
 };
 </script>
 <style scoped>
 .main {
-  width: 1536px;
+  width: 1519px;
   margin: 0 auto;
+}
+.m-t {
+  display: flex;
+  justify-content: space-around;
+}
+.user-control {
+  padding: 0 50px;
+}
+.item{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item .item-content{
+  width: 800px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.item-c-msg{
+  width: 150px;
+}
+.item-c-msg img{
+  width: 150px;
+  height: 130px;
 }
 </style>

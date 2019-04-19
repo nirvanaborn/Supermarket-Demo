@@ -6,6 +6,8 @@
           <img :src="p.url" :alt="p.name" v-if="i==chooseIndex">
         </transition>
       </li>
+      <button class="directionArrow" id="leftArrow" @click="forward">&lt;</button>
+      <button class="directionArrow" id="rightArrow" @click="backward">&gt;</button>
     </ul>
     <ul class="points">
       <li
@@ -23,7 +25,7 @@ export default {
   data() {
     return {
       pictures: [],
-      chooseIndex: "0"
+      chooseIndex: 0
     };
   },
   mounted() {
@@ -38,25 +40,30 @@ export default {
     },
     change(e) {
       this.chooseIndex = this.$(e.target).index();
+    },
+    forward() {
+      this.chooseIndex -= 1;
+      if (this.chooseIndex < 0) {
+        this.chooseIndex = this.$(".pic li").length - 1;
+      }
+    },
+    backward() {
+      this.chooseIndex += 1;
+      if (this.chooseIndex >= this.$(".pic li").length) {
+        this.chooseIndex = 0;
+      }
     }
   }
 };
 </script>
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
-li {
-  list-style: none;
-}
 img {
-  width: 400px;
-  height: 300px;
+  width: 780px;
+  height: 400px;
 }
 .pic {
-  width: 400px;
-  height: 300px;
+  width: 780px;
+  height: 400px;
   overflow: hidden;
   display: flex;
   margin: 0 auto;
@@ -80,7 +87,7 @@ img {
   border-radius: 50%;
 }
 .choose {
-  background-color: #f00;
+  background-color: #99cc99;
 }
 .changePic-enter-active,
 .changePic-leave-active {
@@ -89,5 +96,22 @@ img {
 .changePic-enter,
 .changePic-leave-to {
   opacity: 0;
+}
+.directionArrow {
+  width: 20px;
+  height: 50px;
+  line-height: 50px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border: none;
+  position: absolute;
+  top: 50%;
+  outline: none;
+}
+#leftArrow {
+  left: 0;
+}
+#rightArrow {
+  right: 0;
 }
 </style>

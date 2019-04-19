@@ -1,9 +1,6 @@
 <template>
   <div class="login">
     <Header></Header>
-    <div class="header">
-      <img src="../assets/logo.png" alt="logo" id="logo">
-    </div>
     <div class="container">
       <div class="c-r">
         <h1>用户登录</h1>
@@ -24,20 +21,18 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      By：North University of China 郭继隆
-      <br>email：1846055905@qq.com
-      <br>phone：18306897726
-    </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import { getCookie, setCookie } from "../assets/js/cookie";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 export default {
   name: "login",
-  compnoents: {
-    Header
+  components: {
+    Header,
+    Footer
   },
   data() {
     return {
@@ -88,15 +83,15 @@ a {
   color: #000;
 }
 
-#logo {
-  margin-left: 50px;
+.login {
+  height: 721px;
 }
 
 .container {
   background-color: #99cc99;
-  height: calc(100% - 180px);
+  height: calc(100% - 175px);
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: center;
   align-items: center;
 }
 
@@ -106,7 +101,6 @@ a {
   border: 2px solid transparent;
   border-radius: 10px;
   padding: 10px;
-  margin-right: 100px;
   background-color: #fff;
   align-items: center;
   color: #99cc99;
@@ -162,14 +156,6 @@ a {
   border-radius: 14px;
   outline: none;
   margin: 0 auto;
-  font-weight: 700;
-}
-
-.footer {
-  padding: 10px 0;
-  height: 60px;
-  text-align: center;
-  color: #99cc99;
   font-weight: 700;
 }
 </style>

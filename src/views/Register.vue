@@ -136,12 +136,15 @@ export default {
 };
 </script>
 <style scoped>
+*{
+  box-sizing: border-box;
+}
 a {
   text-decoration-line: none;
   color: #000;
 }
 
-.register{
+.register {
   height: 721px;
   display: flex;
   flex-direction: column;
@@ -149,7 +152,7 @@ a {
 
 .container {
   background-color: #99cc99;
-  height: calc(100% - 180px);
+  height: calc(100% - 175px);
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -174,15 +177,35 @@ a {
   -webkit-user-select: none;
 }
 
+.c-r .item:nth-child(-n+7) input{
+  width: 180px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  margin-right: 20px;
+  padding:0 0 0 10px;
+  outline: none;
+  border: 1px solid #99cc99;
+}
+
+
 .c-r h1 {
   padding-left: 10px;
   color: #99cc99;
 }
 
 .c-r .item {
+  height: 30px;
+  line-height: 30px;
   margin: 20px 0;
   padding-left: 10px;
   font-size: 16px;
+  display: flex;
+}
+
+.c-r .item label{
+  width: 80px;
+  line-height: 34px;
 }
 
 .c-r button {
@@ -203,8 +226,12 @@ a {
   outline: none;
   width: 50px;
   text-align: center;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  background-color: #99cc99;
+  color: #fff;
+  font-weight: 700;
 }
 
 #btn-check {
@@ -218,6 +245,8 @@ a {
   background-color: #99cc99;
   font-weight: 700;
   color: #fff;
+  padding: 0;
+  margin: 0;
 }
 
 .c-r .item:last-of-type {

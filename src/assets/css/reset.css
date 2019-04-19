@@ -1,9 +1,15 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
 html,
 body {
-    width: 1536px;
-    margin: 0;
-    padding: 0;
+    /* width: 1536px; */
     font-size: 14px;
-    box-sizing: border-box;
     height: 100%;
+}
+li{
+    list-style: none;
 }
