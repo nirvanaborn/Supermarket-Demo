@@ -1,11 +1,6 @@
 <template>
   <div class="home">
-    <Header :msgUrl="loginOrpersonalSpaceUrl" :msgUsername="username" :quit="quit">
-      <div class="user-control">
-        <router-link :to="loginOrpersonalSpaceUrl">{{username}}</router-link>
-        <button @click="quit" v-if="username!='您好，请登录'">注销</button>
-      </div>
-    </Header>
+    <Header></Header>
     <div class="main">
       <div class="m-t">
         <Side @sendList="sendFromSide"></Side>
@@ -18,7 +13,9 @@
         <div class="item-content">
           <div v-for="(item,i) in g.items" :key="i" class="item-c-msg">
             <span>{{item.name}}</span>
-            <img :src="item.imgUrl" :alt="item.commodityCode">
+            <router-link :to="{path:'/detail',query:{id:item._id.toString()}}">
+              <img :src="item.imgUrl" :alt="item.commodityCode">
+            </router-link>
           </div>
         </div>
       </div>
@@ -29,7 +26,6 @@
 
 <script>
 // @ is an alias to /src
-import { setCookie, getCookie, delCookie } from "../assets/js/cookie";
 import RotationImg from "@/components/RotationImg.vue";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
@@ -40,8 +36,6 @@ export default {
   name: "home",
   data() {
     return {
-      username: "您好，请登录",
-      loginOrpersonalSpaceUrl: "",
       lists: [],
       goods: []
     };
@@ -54,26 +48,9 @@ export default {
     Discount
   },
   mounted() {
-    if (!getCookie("loginName")) {
-      console.log("请先登录");
-      this.loginOrpersonalSpaceUrl = "/login";
-      // this.$router.push({ path: "/login" });
-    } else {
-      this.username = getCookie("loginName");
-      this.loginOrpersonalSpaceUrl = "/personspace";
-    }
     this.getGoods();
   },
   methods: {
-    quit() {
-      if (getCookie("loginName")) {
-        delCookie("loginName");
-        console.log("cookie删除成功");
-        setTimeout(function() {
-          location.reload();
-        }, 500);
-      }
-    },
     getGoods() {
       var vm = this;
       this.axios.get("/api/getGoods").then(function(res) {
@@ -100,22 +77,22 @@ export default {
 .user-control {
   padding: 0 50px;
 }
-.item{
+.item {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.item .item-content{
+.item .item-content {
   width: 800px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.item-c-msg{
+.item-c-msg {
   width: 150px;
 }
-.item-c-msg img{
+.item-c-msg img {
   width: 150px;
   height: 130px;
 }
