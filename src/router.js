@@ -8,6 +8,10 @@ import ShoppingCart from './views/ShoppingCart.vue'
 import CartJumpPage from './views/CartJumpPage.vue'
 import PersonSpace from './views/PersonSpace.vue'
 import Orders from './views/Orders.vue'
+import ChangePersonalInfo from './views/ChangePersonalInfo.vue'
+import ManagePage from './views/ManagePage.vue'
+import ManageSpace from './views/ManageSpace.vue'
+import List from './views/List.vue'
 
 Vue.use(Router)
 
@@ -54,6 +58,26 @@ export default new Router({
       path: '/orders',
       name: 'Orders',
       component: Orders
+    },
+    {
+      path: '/changepersonalinfo',
+      name: 'ChangePersonalInfo',
+      component: ChangePersonalInfo
+    },
+    {
+      path: '/managepage',
+      name: 'ManagePage',
+      component: ManagePage
+    },
+    {
+      path: '/managespace',
+      name: 'ManageSpace',
+      component: ManageSpace
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
     }
   ]
 })

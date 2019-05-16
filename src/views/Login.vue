@@ -1,39 +1,34 @@
 <template>
   <div class="login">
-    <Header></Header>
-    <div class="container">
-      <div class="c-r">
-        <h1>用户登录</h1>
-        <div class="item">
-          <label for="loginName">用户名：</label>
-          <input type="text" id="loginName" v-model="loginName">
-        </div>
-        <div class="item">
-          <label for="password">密&nbsp;&nbsp;&nbsp;码：</label>
-          <input type="password" id="password" v-model="password">
-        </div>
-        <div class="item">
-          <a href="javascript:void(0);">忘记密码</a>
-          <router-link to="/register">立即注册</router-link>
-        </div>
-        <div class="item">
-          <button id="btn-login" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
-        </div>
+    <div class="c-r">
+      <h1>登录</h1>
+      <div class="item">
+        <label for="loginName">
+          <img src="/images/icons/userName.png" alt="username-img">
+        </label>
+        <input type="text" id="loginName" v-model="loginName" spellcheck="false">
+      </div>
+      <div class="item">
+        <label for="password">
+          <img src="/images/icons/password.png" alt="password">
+        </label>
+        <input type="password" id="password" v-model="password">
+      </div>
+      <div class="item">
+        <a href="javascript:void(0);">忘记密码</a>
+        <router-link to="/register">立即注册</router-link>
+      </div>
+      <div class="item">
+        <button id="btn-login" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 <script>
 import { getCookie, setCookie } from "../assets/js/cookie";
-import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 export default {
   name: "login",
-  components: {
-    Header,
-    Footer
-  },
+  components: {},
   data() {
     return {
       loginName: "",
@@ -63,70 +58,75 @@ export default {
         }
         setCookie("loginName", vm.loginName, 1000 * 60);
         vm.$router.push({ path: "/" });
+        location.reload();
       });
     }
   }
 };
 </script>
 <style scoped>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  box-sizing: border-box;
-  height: 100%;
-}
-
-a {
-  text-decoration-line: none;
-  color: #000;
+a:visited {
+  color: #fff;
 }
 
 .login {
-  height: 721px;
-}
-
-.container {
-  background-color: #99cc99;
-  height: calc(100% - 175px);
+  width: 100%;
+  height: 571px;
+  background-color: #e9eef2;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .c-r {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border: 2px solid transparent;
   border-radius: 10px;
   padding: 10px;
   background-color: #fff;
   align-items: center;
-  color: #99cc99;
+  color: #000;
   font-weight: 700;
   -webkit-user-select: none;
 }
 
 .c-r h1 {
   padding-left: 10px;
-  color: #99cc99;
+  color: #000;
 }
 
 .c-r .item {
-  margin: 20px 0;
+  margin: 35px 0;
   padding-left: 10px;
   font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c-r .item label {
+  display: flex;
+  align-items: center;
 }
 
 .c-r .item input {
-  width: 180px;
+  width: 250px;
   height: 30px;
-  padding-left: 10px;
+  margin-right: 50px;
   line-height: 30px;
   font-size: 16px;
   outline: none;
-  border: 1px solid #99cc99;
+  border: 0;
+  border-bottom: 1px solid #999;
+  text-align: center;
+  caret-color: #999;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px white inset !important;
 }
 
 .c-r .item:nth-of-type(3) {
@@ -138,7 +138,7 @@ a {
 .c-r .item:nth-of-type(3) a {
   display: block;
   margin: 0 5px;
-  color: #99cc99;
+  color: #000;
 }
 
 .c-r .item:nth-of-type(4) {
@@ -151,11 +151,21 @@ a {
   width: 200px;
   height: 30px;
   text-align: center;
-  background-color: #99cc99;
-  border: 1px solid #ccc;
+  background-color: #000;
+  border: 1px solid #000;
   border-radius: 14px;
   outline: none;
   margin: 0 auto;
   font-weight: 700;
+}
+@media screen and (max-width: 992px) {
+  .c-r {
+    background-color: green;
+  }
+}
+@media screen and (max-width: 768px) {
+  .c-r {
+    background-color: red;
+  }
 }
 </style>

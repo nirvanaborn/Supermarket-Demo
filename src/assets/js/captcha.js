@@ -17,9 +17,9 @@ export function createCode() {
 export function validate() {
     var oValue = document.getElementById('input').value.toUpperCase();
     if (oValue == 0) {
-        alert('请输入验证码');
+        // alert('请输入验证码');
     } else if (oValue != code) {
-        alert('验证码不正确，请重新输入');
+        // alert('验证码不正确，请重新输入');
         oValue = ' ';
         createCode();
     } else {

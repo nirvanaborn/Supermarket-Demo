@@ -21,7 +21,7 @@ export default {
       var vm = this;
       this.axios.get("/api/list").then(function(res) {
         vm.lists = res.data.result;
-        console.log(vm.lists);
+        // console.log(vm.lists);
         vm.sendToHome();
       });
     },

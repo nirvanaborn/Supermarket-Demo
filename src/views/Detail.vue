@@ -1,6 +1,5 @@
 <template>
   <div class="detail">
-    <Header></Header>
     <span>商品名称：{{product.name}}</span>
     <br>
     <span>单价：{{product.unitPrice}}￥</span>
@@ -17,7 +16,6 @@
       </span>
       <button @click="addToShoppingCart">加入购物车</button>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 <script>
@@ -67,8 +65,10 @@ export default {
         productName: this.product.name,
         unitPrice: this.product.unitPrice,
         productId: randomString(32),
-        status: "未付款"
+        status: "未付款",
+        stock: this.product.number - parseInt(this.$("#number").val())
       };
+      console.log(data)
       var judge = confirm("确定添加到购物车?");
       if (judge) {
         this.axios.post("/api/addToCart", data).then(res => {

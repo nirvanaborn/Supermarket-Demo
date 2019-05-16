@@ -1,6 +1,6 @@
 <template>
   <div class="shoppingCart">
-    <Header></Header>i am shoppingCart page
+    <!-- <Header></Header>i am shoppingCart page -->
     <router-link to="/" v-if="!orders.length">购物车是空的，快去购物吧</router-link>
     <table v-if="orders.length">
       <tr>
@@ -21,24 +21,25 @@
         <td>{{o.productId}}</td>
         <td>{{o.productName}}</td>
         <td>
-          <button>+</button>
-          {{o.number}}
-          <button>-</button>
+          <button @click="plus(i)">+</button>
+          <input type="text" :value="o.number">
+          <button @click="minus(i)">-</button>
+          <span>{{o.stock}}</span>
         </td>
-        <td>{{o.totalSum.toFixed(2)}}</td>
+        <td>{{(o.unitPrice*o.number).toFixed(2)}}</td>
         <td>{{o.status}}</td>
         <td>
-          <a href="javascript:void(0);">删除</a>
+          <a href="javascript:void(0);" @click="deleteOrder(i)">删除</a>
         </td>
       </tr>
     </table>
     <button @click="payment" v-if="orders.length">结算</button>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
 </template>
 <script>
-import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
+// import Header from "@/components/Header.vue";
+// import Footer from "@/components/Footer.vue";
 import { setCookie, getCookie, delCookie } from "../assets/js/cookie";
 export default {
   name: "ShoppingCart",
@@ -50,14 +51,15 @@ export default {
     };
   },
   components: {
-    Header,
-    Footer
+    // Header,
+    // Footer
   },
   mounted() {
     this.axios
       .get("/api/getOrders", { params: { userName: getCookie("loginName") } })
       .then(res => {
         this.orders = res.data.result;
+        console.log(this.orders);
       });
   },
   watch: {
@@ -81,7 +83,7 @@ export default {
         this.axios.post("/api/payment", vm.checkedList).then(res => {
           if (res.data.code == 200) {
             alert(res.data.message);
-            vm.$router.push({ path: "/shoppingcart" });
+            location.reload();
           }
         });
       }
@@ -94,6 +96,35 @@ export default {
         this.orders.forEach(item => {
           this.checkedList.push(item);
         });
+      }
+    },
+    plus(i) {
+      let x = this.orders[i].number;
+      if (x >= this.orders[i].stock) {
+        return;
+      }
+      x++;
+      this.orders[i].number = x;
+      this.orders[i].stock -= 1;
+    },
+    minus(i) {
+      let x = this.orders[i].number;
+      if (x <= 0) {
+        return;
+      }
+      x--;
+      this.orders[i].number = x;
+      this.orders[i].stock -= 1;
+    },
+    deleteOrder(i) {
+      var vm = this;
+      if (confirm("确认删除订单?")) {
+        this.axios
+          .post("/api/deleteOrder", { productId: vm.orders[i].productId })
+          .then(res => {
+            alert(res.data.message);
+            location.reload();
+          });
       }
     }
   }
